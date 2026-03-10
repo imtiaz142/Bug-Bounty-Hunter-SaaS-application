@@ -376,4 +376,6 @@ Features planned for upcoming releases:
 
 This project is for authorized security testing purposes only. Always ensure you have explicit permission before scanning any target.
 
-For commercial licensing inquiries, please contact the maintainers.
+For commercial licensing, white-label partnerships, or custom development inquiries:
+
+**[Contact the Developer](https://fullstackaiengineerpro.com/contact)**

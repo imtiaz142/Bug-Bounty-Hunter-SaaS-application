@@ -108,97 +108,6 @@ The scanning engine operates as a 5-stage sequential pipeline:
 
 ---
 
-## Getting Started
-
-### Prerequisites
-
-- **Python 3.11+**
-- **Node.js 18+**
-- **npm** or **yarn**
-
-### 1. Clone the Repository
-
-```bash
-git clone https://github.com/imtiaz142/bug_bounty_hunter.git
-cd bug_bounty_hunter
-```
-
-### 2. Backend Setup
-
-```bash
-cd backend
-
-# Create virtual environment
-python -m venv venv
-source venv/bin/activate      # Linux/Mac
-# venv\Scripts\activate       # Windows
-
-# Install dependencies
-pip install -r requirements.txt
-
-# Create .env (or copy from .env.example)
-cat > .env << 'EOF'
-SECRET_KEY=your-secret-key-change-this-in-production
-DATABASE_URL=sqlite+aiosqlite:///./bugbounty.db
-DATABASE_URL_SYNC=sqlite:///./bugbounty.db
-REDIS_URL=
-CELERY_BROKER_URL=
-CELERY_RESULT_BACKEND=
-JWT_SECRET_KEY=your-jwt-secret-change-this
-AES_KEY=your-32-byte-aes-key-here123456
-EOF
-
-# Seed demo user (optional)
-python seed.py
-
-# Start the server
-uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
-```
-
-The API will be available at `http://localhost:8000`. Swagger docs at `http://localhost:8000/docs`.
-
-### 3. Frontend Setup
-
-```bash
-cd frontend
-
-# Install dependencies
-npm install
-
-# The .env.local is pre-configured for local dev with mock data:
-# NEXT_PUBLIC_API_URL=http://localhost:8000
-# NEXT_PUBLIC_WS_URL=ws://localhost:8000
-# NEXT_PUBLIC_USE_MOCK=true
-
-# Start dev server
-npm run dev
-```
-
-The app will be available at `http://localhost:3000`.
-
-### 4. Mock Mode (No Backend Needed)
-
-The frontend includes a complete mock data layer for offline development:
-
-```env
-# frontend/.env.local
-NEXT_PUBLIC_USE_MOCK=true
-```
-
-When mock mode is enabled, the app loads with realistic sample data:
-- 6 scans (completed, running, failed)
-- 15+ vulnerability findings (SQLi, XSS, IDOR, SSRF, CSRF, etc.)
-- CVSS scores, CWE identifiers, and fix recommendations
-- PDF reports (ready/generating)
-- Agent pipeline logs
-
-To switch to real backend:
-```env
-NEXT_PUBLIC_USE_MOCK=false
-```
-
----
-
 ## Project Structure
 
 ```
@@ -383,6 +292,88 @@ When running with `seed.py`:
 
 ---
 
+## Licensing & Pricing
+
+### Licensing Models
+
+#### 1. Freemium / Open-Core (Recommended)
+
+| Tier | Price | What's Included |
+|------|-------|----------------|
+| **Community (Free)** | $0 | Core scanner, 1 agent pipeline, SQLite, 3 scans/month, basic reports |
+| **Pro** | $49/mo | All 5 agents, unlimited scans, PDF reports, AI analysis (BYOK), priority queue |
+| **Team** | $149/mo | Multi-user, shared dashboard, role-based access, team findings board, Slack/webhook alerts |
+| **Enterprise** | $499+/mo | On-premise deployment, SSO/SAML, custom agents, SLA, dedicated support, compliance reports |
+
+#### 2. Per-Scan Pricing (Usage-Based)
+
+| Plan | Price |
+|------|-------|
+| Pay-as-you-go | $5 per quick scan, $15 per full scan |
+| Credit packs | 50 scans for $150 (30% discount) |
+| Unlimited | $299/mo flat rate |
+
+#### 3. One-Time License (Self-Hosted)
+
+| License | Price | Target |
+|---------|-------|--------|
+| Single Developer | $299 | Freelance pentesters |
+| Small Team (up to 5) | $799 | Small security teams |
+| Organization (unlimited) | $2,499 | Companies, agencies |
+| White-Label / OEM | $5,000+ | Resellers who rebrand it as their own product |
+
+### Why BugHunter
+
+- **AI-powered analysis** (Claude / OpenAI) — a key differentiator over traditional scanners
+- **Full pipeline automation** — not just scanning, but exploit verification + report generation
+- **Professional PDF reports** — hand directly to stakeholders
+- **Multi-provider LLM** — not locked to one vendor
+- **Zero-dependency local mode** — easy setup, no infrastructure headache
+- **Clean modern UI** — production-ready from day one
+
+### Revenue Channels
+
+| Channel | Description |
+|---------|-------------|
+| **SaaS (Hosted)** | Host the platform, charge monthly subscriptions. Users sign up and scan from the browser. |
+| **Downloadable License** | Sell as self-hosted software with a license key. No server costs for you. |
+| **API-as-a-Service** | Expose the scanning pipeline as a REST API for CI/CD integration. Charge per API call. |
+| **White-Label** | Let security agencies rebrand it as their own tool. $5,000–$15,000 per license. |
+| **Marketplaces** | Sell on Gumroad, LemonSqueezy, AWS Marketplace, or Codecanyon. |
+
+### Market Comparison
+
+| Tool | Pricing | BugHunter Advantage |
+|------|---------|-------------------|
+| Burp Suite Pro | $449/year | AI-powered analysis, automated pipeline |
+| Acunetix | $4,500/year | 10x cheaper, same core scanning |
+| Invicti (Netsparker) | $6,000+/year | Self-hosted option, LLM integration |
+| Detectify | $275/mo | Full pipeline with exploit verification |
+| Intruder | $113/mo | Competitive pricing with more features |
+
+**Sweet spot: $49–149/mo subscription or $299–799 one-time license** — undercutting enterprise tools while offering AI-powered analysis they don't have.
+
+---
+
+## Roadmap
+
+Features planned for upcoming releases:
+
+| Feature | Description | Priority |
+|---------|-------------|----------|
+| License key system | Enforce paid tiers, prevent unauthorized use | High |
+| Usage limits | Free tier: 3 scans/mo, Pro: unlimited | High |
+| Multi-tenancy | Multiple users with isolated data & roles | High |
+| CI/CD integration | GitHub Actions / GitLab CI plugin | Medium |
+| Scheduled scans | Recurring weekly/monthly automated scans | Medium |
+| Email notifications | Scan complete / new critical finding alerts | Medium |
+| Compliance templates | OWASP Top 10, PCI-DSS, SOC2 report formats | Medium |
+| Landing page | Marketing website with pricing, demo, and docs | Medium |
+
+---
+
 ## License
 
-This project is for educational and authorized security testing purposes only. Always ensure you have explicit permission before scanning any target.
+This project is for authorized security testing purposes only. Always ensure you have explicit permission before scanning any target.
+
+For commercial licensing inquiries, please contact the maintainers.
